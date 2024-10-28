@@ -1,26 +1,20 @@
 public class Solution {
     public int ClimbStairs(int n)
     {
-        if (n == 1 )
+        if (n<2)
             return 1;
 
-        Dictionary<int, int> map  = new Dictionary<int, int>();
+        
+        int minusStep=1;
+        int minus2Steps = 2;
 
-        return ClimbStairsHelper(n, map);
-    }
+        for(int i=2;i<n;i++){
+            int tmp = minusStep;
+            minusStep = minus2Steps;
+            minus2Steps = minus2Steps + tmp;
+        }
 
-    private int ClimbStairsHelper(int n, Dictionary<int, int> map)
-    {
-        if (n == 1 || n==0)
-            return 1;
-
-        if (map.ContainsKey(n))
-            return map[n];
-
-
-        int val= ClimbStairsHelper(n - 1, map) + ClimbStairsHelper(n - 2, map);
-        map.Add(n, val);
-        return val;
+        return minus2Steps;   
     }
 
 }
