@@ -1,7 +1,6 @@
 public class Solution {
     public int MaxProfit(int[] prices) {
-        
-        int max=0;
+        int maxProfit=0;
         int minPrice=prices[0];
 
         foreach(var price in prices)
@@ -9,9 +8,9 @@ public class Solution {
             if (minPrice>price)
                 minPrice = price;
             
-            max = Math.Max(max, price-minPrice);
+            maxProfit = Math.Max(maxProfit, price-minPrice);
         }
 
-        return max;
+        return maxProfit;
     }
 }
