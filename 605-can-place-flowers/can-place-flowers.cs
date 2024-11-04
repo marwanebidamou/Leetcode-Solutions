@@ -1,7 +1,6 @@
 public class Solution {
     public bool CanPlaceFlowers(int[] flowerbed, int n) {
 
-        int index=0;
         if (n==0)
             return true;
             
@@ -14,30 +13,29 @@ public class Solution {
             else
                 return n==1;
 
-        while(index<flowerbed.Length && n>0){
-            if(index==0 && flowerbed[0]==0 && flowerbed[1]==0){
-                n--;
-                index+=2;
-            }
-            else if(index==flowerbed.Length-1 && flowerbed[index]==0 && flowerbed[flowerbed.Length-2]==0)
+        
+
+        int pointer = 0;
+        while(pointer<flowerbed.Length){
+            if (flowerbed[pointer]==0)
             {
-                n--;
-                break;
+                bool isLeftAvailable = pointer-1<0 || flowerbed[pointer-1]==0;
+                bool isRightAvailable = pointer+1>flowerbed.Length-1 || flowerbed[pointer+1]==0;
+
+                if (isLeftAvailable && isRightAvailable)
+                {
+                    flowerbed[pointer]=1;
+                    n--;
+                }
+
             }
-            else if (index-1>=0 && index+1 <flowerbed.Length 
-                && flowerbed[index-1]==0
-                && flowerbed[index]==0
-                && flowerbed[index+1]==0)
-            {
-                n--;
-                index+=2;
-            }
-            else{
-                index++;
-            }
+            if (n<=0)
+                return true;
+
+            pointer++;
         }
 
-        return n==0;
+        return false;
         
     }
 }
