@@ -11,7 +11,7 @@ public class Solution
 
         for (int i = 1; i < numRows; i++)
         {
-            list.Add(Enumerable.Repeat(0, i+1).ToList());
+            list.Add(new int[i+1]);
             int columnIndex = 0;
             list[i][columnIndex++] = list[i - 1][0];
 
