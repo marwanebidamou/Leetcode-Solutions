@@ -1,47 +1,25 @@
 public class Solution {
     public int RemoveElement(int[] nums, int val)
     {
-        if (nums.Length == 0)
+        if (nums.Length==0)
             return 0;
-        if (nums.Length == 1)
-        {
-            if (nums[0] == val)
-                return 0;
-            else
-                return 1;
-        }
+        
 
         int leftPointer = 0;
-        int rightPointer = nums.Length - 1;
-        int cpt = 0;
+        int rightPointer = nums.Length-1;
 
+        int k=nums.Length;
 
-        while (leftPointer <= rightPointer)
-        {
-            if (nums[rightPointer] == val)
-            {
-                rightPointer--;
-                cpt++;
-            }
-            else
-            {
-                if (nums[leftPointer] != val)
-                {
-                    leftPointer++;
-                }
-                else
-                {
-                    int tmp = nums[leftPointer];
-                    nums[leftPointer] = nums[rightPointer];
-                    nums[rightPointer] = tmp;
-                    rightPointer--;
-                    cpt++;
+        while(leftPointer<=rightPointer){         
 
-                }
+            if (nums[leftPointer] == val){
+                k--;
+                nums[leftPointer] = nums[rightPointer--];
+            } else {
+                leftPointer++;
+            }               
+        }
 
-            }
-        }            
-
-        return nums.Length - cpt;
+        return k;
     }
 }
