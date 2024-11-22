@@ -1,12 +1,12 @@
 public class Solution {
     public int UniquePaths(int m, int n) {
 
-        Dictionary<Tuple<int,int>,int> memo = new Dictionary<Tuple<int,int>,int>();
+        Dictionary<string,int> memo = new Dictionary<string,int>();
 
         return UniquePathsHelper(m,n,memo);
     }
 
-    public int UniquePathsHelper(int m, int n, Dictionary<Tuple<int,int>,int> memo) {
+    public int UniquePathsHelper(int m, int n, Dictionary<string,int> memo) {
 
         if (m== 0 || n==0) //empty grid
             return 0;
@@ -16,7 +16,7 @@ public class Solution {
         
 
         int topCellPaths;
-        var memoTopKey = new Tuple<int,int>(m-1, n);
+        var memoTopKey = Math.Min(m-1, n)+"-"+Math.Max(m-1, n);
 
         if (memo.ContainsKey(memoTopKey)){
             Console.WriteLine(memoTopKey);
@@ -28,7 +28,7 @@ public class Solution {
         }
 
         int leftCellPaths;
-        var memoLeftKey = new Tuple<int,int>(m, n-1);
+        var memoLeftKey = Math.Min(m, n-1)+"-"+Math.Max(m, n-1);
         
         if (memo.ContainsKey(memoLeftKey)){
             Console.WriteLine(memoLeftKey);
