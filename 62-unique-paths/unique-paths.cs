@@ -8,7 +8,7 @@ public class Solution {
 
     public int UniquePathsHelper(int m, int n, Dictionary<string,int> memo) {
 
-        var memoKey = m+","+n;
+        var memoKey = Math.Min(m,n)+","+Math.Max(m,n);
 
         if (memo.ContainsKey(memoKey)){
             return memo[memoKey];
