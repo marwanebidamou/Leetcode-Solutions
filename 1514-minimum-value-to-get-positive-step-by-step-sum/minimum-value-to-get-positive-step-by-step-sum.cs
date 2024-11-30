@@ -68,14 +68,21 @@ public class Solution {
         /*
         // Solving the problem using the Prefix total approach 
         */  
-        int minVal = 0;
-        int sum = 0;
-        for(int i=0;i<nums.Length;i++){
-            sum+=nums[i];
-            minVal = Math.Min(sum,minVal);
+        
+        // This approach calculates the running sum of the array and keeps track of the minimum value encountered.
+
+        int minVal = 0; // Variable to store the minimum value of the running sum.
+        int sum = 0; // Variable to keep track of the running sum.
+
+        // Iterate through the array to calculate the prefix sums and find the minimum value.
+        for(int i = 0; i < nums.Length; i++) {
+            sum += nums[i]; // Add the current element to the running sum.
+            minVal = Math.Min(sum, minVal); // Update the minimum value if the current sum is smaller.
         }
 
-        return minVal>0 ? 1 : (minVal * -1) + 1;
+        // If the minimum value is positive or zero, the minimum start value is 1.
+        // Otherwise, the minimum start value is the absolute value of the minimum plus 1.
+        return minVal > 0 ? 1 : (minVal * -1) + 1;
 
     }
 }
