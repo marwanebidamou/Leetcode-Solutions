@@ -28,7 +28,7 @@ public class Solution {
 
 
         /*
-        */
+        
         // Solving the problem using the binary search approach 
 
         // Let n be the length of the array "nums", m be the absolute value 
@@ -62,6 +62,20 @@ public class Solution {
             }
         }
 
-        return left;        
+        return left;   
+        */   
+
+        /*
+        // Solving the problem using the Prefix total approach 
+        */  
+        int minVal = 0;
+        int sum = 0;
+        for(int i=0;i<nums.Length;i++){
+            sum+=nums[i];
+            minVal = Math.Min(sum,minVal);
+        }
+
+        return minVal>0 ? 1 : (minVal * -1) + 1;
+
     }
 }
