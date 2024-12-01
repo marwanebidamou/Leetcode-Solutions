@@ -4,9 +4,7 @@ public class Solution {
         int[] vertices = new int[edges.Length+2];
 
         for(int i=0;i<edges.Length;i++)
-        {
-             Console.WriteLine(edges[i][0]+" - "+ edges[i][1]);
-            
+        {            
             vertices[edges[i][0]]++;
             vertices[edges[i][1]]++;
 
