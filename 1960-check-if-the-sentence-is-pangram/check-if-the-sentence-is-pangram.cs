@@ -6,12 +6,9 @@ public class Solution {
         for(int i=0;i<sentence.Length;i++)
         {
             chars.Add(sentence[i]);
-
-            if(chars.Count()==26)
-                return true;
         }
 
-        return false;
+        return chars.Count()==26;
 
     }
 }
