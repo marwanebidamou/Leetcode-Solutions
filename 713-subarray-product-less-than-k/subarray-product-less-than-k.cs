@@ -7,24 +7,20 @@ public class Solution {
 
         int product=1;
 
-        while(right<nums.Length){
+        for(right=0; right<nums.Length; right++){
+            // Expand the window by including the element at the right pointer
+            product *= nums[right];
 
-            product*=nums[right];
-
-            if(product<k){
-                totalSubArrays += right - left + 1;
+            // Shrink the window from the left while the product is greater than or equal to k
+            while(product >= k){
+                // Remove the element at the left pointer from the product
+                product /= nums[left];
+                left++;
             }
-            else{
-                while(product>=k && left<nums.Length){
-                    product /= nums[left];
-                    left++;
-                }
-                if(product<k){
-                    totalSubArrays += right - left + 1;
-                }
-            }  
-            right++;
-
+            
+             // Update the total count by adding the number of valid subarrays with the current window size
+            totalSubArrays += right - left + 1; // right - left + 1 represents the current window size
+            
         }
 
         return totalSubArrays;
