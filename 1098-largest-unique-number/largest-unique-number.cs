@@ -2,9 +2,6 @@ public class Solution {
     public int LargestUniqueNumber(int[] nums) {
 
         Array.Sort(nums, Comparer<int>.Create((a,b)=>b-a));
-
-        Dictionary<int,int> map = new Dictionary<int,int>();
-
         int lastNumber = nums[0], lastNumberCount = 1;
         
         for(int i=1;i<nums.Length;i++)
