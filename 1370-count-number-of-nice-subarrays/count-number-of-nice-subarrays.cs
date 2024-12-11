@@ -1,28 +1,25 @@
 public class Solution {
     public int NumberOfSubarrays(int[] nums, int k) {
         int result = 0;
-
         int oddCount = 0;
-        Dictionary<int,int> map = new Dictionary<int,int>();
-        map.Add(0,1);
+        Dictionary<int, int> map = new Dictionary<int, int> {
+            { 0, 1 } // To handle cases where a subarray starts at index 0
+        };
 
-        for(int i=0; i< nums.Length; i++)
-        {
-            oddCount += nums[i]%2==1?1:0;
-
-            int toAdd = 0;
-            map.TryGetValue(oddCount - k, out toAdd);
-            result+=toAdd;               
-
-            if(map.ContainsKey(oddCount))
-            {
-                map[oddCount]++;
-            }
-            else {
-                map[oddCount]=1;
+        foreach (int num in nums) {
+            // Increment oddCount if the current number is odd
+            if (num % 2 == 1) {
+                oddCount++;
             }
 
+            // Find the number of subarrays ending at the current position
+            map.TryGetValue(oddCount - k, out int matchingPrefixCount);
+            result += matchingPrefixCount;
+
+            // Update the map with the current oddCount
+            map[oddCount] = map.GetValueOrDefault(oddCount) + 1;
         }
+
         return result;
     }
 }
