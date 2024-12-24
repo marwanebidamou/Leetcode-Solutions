@@ -5,7 +5,7 @@ public class Solution {
 
         Stack<char> chars = new Stack<char>();
         
-        foreach(char character in s){
+        foreach(char character in s.ToCharArray()){
             if(chars.Count == 0)
                 chars.Push(character);
             else if(chars.Peek() == character)
