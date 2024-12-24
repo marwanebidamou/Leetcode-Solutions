@@ -7,8 +7,6 @@ public class Solution {
 
         foreach(var pathElement in pathArray)
         {
-            Console.WriteLine(pathElement);
-
             if(pathElement=="" || pathElement==".")
                 continue;
             
