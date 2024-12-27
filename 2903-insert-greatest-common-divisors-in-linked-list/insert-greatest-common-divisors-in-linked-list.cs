@@ -28,16 +28,15 @@ public class Solution {
         return head;
     }
 
-    private int GetGreatestCommomDivisor(int x, int y)
+    private int GetGreatestCommomDivisor(int p, int q)
     {
-        int min = Math.Min(x,y);
-
-        for(int num = min;num>0;num--)
+        if(q == 0)
         {
-            if(x%num == 0 && y%num==0)
-                return num;
+            return p;
         }
 
-        return 1;
+        int r = p % q;
+
+        return GetGreatestCommomDivisor(q, r);
     }
 }
