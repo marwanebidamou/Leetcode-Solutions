@@ -1,47 +1,34 @@
 public class Solution {
     public string Convert(string s, int numRows) {
-        if(s.Length==1 || numRows ==1)
+        if (numRows == 1 || s.Length <= numRows)
             return s;
 
+        // Use StringBuilder array for each row
+        StringBuilder[] rows = new StringBuilder[numRows];
+        for (int i = 0; i < numRows; i++) {
+            rows[i] = new StringBuilder();
+        }
+
+        int index = 0;
+        int direction = 1; // 1 for down, -1 for up
+
+        // Traverse the string and add characters to the appropriate row
+        foreach (char c in s) {
+            rows[index].Append(c);
             
-        List<char>[] builder = new List<char>[numRows];
-        for(int i=0;i<numRows;i++)
-        {
-            builder[i] = new List<char>();
-        }
-        int index=0;
-        bool fromTopToBottom = true;
-        for(int i=0;i<s.Length;i++)
-        {
+            // Change direction when reaching the top or bottom row
+            if (index == 0) direction = 1;
+            if (index == numRows - 1) direction = -1;
 
-            builder[index].Add(s[i]);
-
-            int nextIndex = fromTopToBottom?index+1:index-1;
-
-            if(nextIndex==numRows)
-            {
-                index=index-1;
-                fromTopToBottom=false;
-            }
-            else if(nextIndex==-1)
-            {
-                index=index+1;
-                fromTopToBottom = true;
-            }
-            else
-            {
-                index=nextIndex;
-            }
+            index += direction;
         }
 
-
+        // Combine all rows into a single result
         StringBuilder result = new StringBuilder();
-        for(int i=0;i<numRows;i++)
-        {
-            string line = new String(builder[i].ToArray());
-            Console.WriteLine(line);
-            result.Append(line);
+        foreach (var row in rows) {
+            result.Append(row);
         }
+
         return result.ToString();
     }
 }
