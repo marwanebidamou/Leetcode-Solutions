@@ -23,14 +23,18 @@ public class Solution {
 
     bool dfs(TreeNode node, int currentSum)
     {
+        //Base case
         if(node == null)
             return false;
 
+        // Add the current node's value to the cumulative sum.
         currentSum+=node.val;
 
-        if(node.left == null && node.right == null && currentSum == target)
-            return true;
+        // Check if the current node is a leaf and the cumulative sum matches the target.
+        if(node.left == null && node.right == null)
+            return currentSum == target;
         
+        // Recursively check the left and right subtrees.
         return dfs(node.left, currentSum) || dfs(node.right, currentSum);
     }
 
