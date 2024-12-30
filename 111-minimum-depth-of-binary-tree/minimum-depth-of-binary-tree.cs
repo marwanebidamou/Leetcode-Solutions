@@ -12,29 +12,24 @@
  * }
  */
 public class Solution {
-
-    int minDepth=int.MaxValue;
-    
+        
     public int MinDepth(TreeNode root) {
-        if(root == null)
-            return 0;
-            
-        dfs(root, 1);
-        return minDepth;
+        return Dfs(root);
     }
 
-    void dfs(TreeNode node,int currentDepth)
+    int Dfs(TreeNode node)
     {
         if(node == null)
-            return;
-        if(node.left == null && node.right == null)
-        {            
-            minDepth = Math.Min(currentDepth, minDepth);
-            return;
+            return 0;
+
+        // If only one of child is non-null, then go into that recursion.
+        if (node.left == null) {
+            return 1 + Dfs(node.right);
+        } else if (node.right == null) {
+            return 1 + Dfs(node.left);
         }
         
-        dfs(node.right, currentDepth+1);
-        dfs(node.left, currentDepth+1);
-
+        // Both children are non-null, hence call for both children.
+        return 1 + Math.Min(Dfs(node.left), Dfs(node.right));
     }
 }
