@@ -13,26 +13,23 @@
  */
 public class Solution {
 
-    int count = 0;
-
     public int GoodNodes(TreeNode root) {
-        dfs(root, int.MinValue);
-        return count;
+        return dfs(root, int.MinValue);
     }
 
-    void dfs(TreeNode node, int maxSoFar)
+    int dfs(TreeNode node, int maxSoFar)
     {
         if(node == null)
-            return;
+            return 0;
 
+        int toAdd = 0;
         if(node.val>= maxSoFar)
         {
             maxSoFar = Math.Max(maxSoFar, node.val);
-            count++;
+            toAdd = 1;
         }
 
-        dfs(node.left,maxSoFar);
-        dfs(node.right,maxSoFar);
+        return toAdd + dfs(node.left,maxSoFar) + dfs(node.right,maxSoFar);
     }
 
     
