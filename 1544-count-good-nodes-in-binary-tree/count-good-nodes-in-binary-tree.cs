@@ -19,18 +19,27 @@ public class Solution {
 
     int dfs(TreeNode node, int maxSoFar)
     {
+        // Base case: If the current node is null, return 0 since there are no nodes to process
         if(node == null)
             return 0;
 
-        int toAdd = 0;
-        if(node.val>= maxSoFar)
-        {
-            maxSoFar = Math.Max(maxSoFar, node.val);
-            toAdd = 1;
-        }
+        // Recursively traverse the left subtree, updating the maximum value encountered so far
+        int left = dfs(node.left, Math.Max(maxSoFar, node.val));
+        // Recursively traverse the right subtree, updating the maximum value encountered so far
+        int right = dfs(node.right, Math.Max(maxSoFar, node.val));
+        
+        // Initialize the answer with the sum of left and right subtree counts
+        int ans = left + right;
 
-        return toAdd + dfs(node.left,maxSoFar) + dfs(node.right,maxSoFar);
+        // If the current node's value is greater than or equal to the max value encountered so far,
+        // increment the count (this node qualifies as being greater than or equal to all previous nodes)
+        if (node.val >= maxSoFar)
+            ans += 1;
+    
+        
+        // Return the total count 
+        return ans;
     }
-
+    
     
 }
