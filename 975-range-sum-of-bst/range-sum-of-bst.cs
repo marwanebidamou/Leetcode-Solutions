@@ -13,24 +13,33 @@
  */
 public class Solution {
     public int RangeSumBST(TreeNode root, int low, int high) {       
-       return helper(root, low, high);
+        // Use a helper function to perform the range sum calculation.
+        return CalculateRangeSum(root, low, high);
     }
 
-    int helper(TreeNode root, int low,int high)
-    {
-        int sum = 0;
-        if(root==null)
+    private int CalculateRangeSum(TreeNode node, int low, int high) {
+        // Base case: If the current node is null, return 0 (no contribution to the sum).
+        if (node == null)
             return 0;
 
-        if(root.val >=low && root.val <= high)
-            sum+= root.val;
-        
-        if(root.val>=low && root.left != null)
-            sum += helper(root.left, low, high);
+        // Initialize the sum for the current subtree.
+        int rangeSum = 0;
 
-        if(root.val<=high && root.right!= null);
-            sum += helper(root.right, low, high);
+        // Include the current node's value if it is within the range [low, high].
+        if (node.val >= low && node.val <= high)
+            rangeSum += node.val;
 
-        return sum;
+        // Recur for the left subtree if the current node's value is greater than or equal to `low`.
+        // This ensures we only consider nodes that might have values within range.
+        if (node.val >= low)
+            rangeSum += CalculateRangeSum(node.left, low, high);
+
+        // Recur for the right subtree if the current node's value is less than or equal to `high`.
+        // This ensures we only consider nodes that might have values within range.
+        if (node.val <= high)
+            rangeSum += CalculateRangeSum(node.right, low, high);
+
+        // Return the total sum for this subtree.
+        return rangeSum;
     }
 }
