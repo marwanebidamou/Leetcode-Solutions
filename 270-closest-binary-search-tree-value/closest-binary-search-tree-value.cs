@@ -12,33 +12,31 @@
  * }
  */
 public class Solution {
-    public int ClosestValue(TreeNode root, double target) {        
-        return Helper(root, target, root.val);
-    }
+    public int ClosestValue(TreeNode root, double target) {
+        // Initialize the closest value as the root's value
+        int closest = root.val;
 
-    private int Helper(TreeNode root, double target,int closest)
-    {
-        if(root==null)
-            return closest;
+        // Traverse the tree iteratively
+        while (root != null) {
+            // Calculate the current distance and closest distance to the target
+            double currentDistance = Math.Abs(target - root.val);
+            double closestDistance = Math.Abs(target - closest);
 
-        if(root.val == target)
-            return root.val;
-        
-        double oldClosest = Math.Abs(target-closest);
-        double newClosest = Math.Abs(target-root.val);
+            // Update the closest value if the current value is closer or ties but is smaller
+            if (currentDistance < closestDistance || 
+                (currentDistance == closestDistance && root.val < closest)) {
+                closest = root.val;
+            }
 
-        if(oldClosest == newClosest)
-            closest = Math.Min(closest, root.val);
-        else
-            closest = newClosest < oldClosest ? root.val : closest;
+            // Determine the direction to move: left or right subtree
+            if (target < root.val) {
+                root = root.left; // Move left if the target is smaller than the current node value
+            } else {
+                root = root.right; // Move right if the target is greater or equal
+            }
+        }
 
-        var closesValueInLeft = Helper(root.left, target, closest);
-        var closesValueInRight = Helper(root.right,target, closest);
-
-        if(Math.Abs(target-closesValueInLeft) == Math.Abs(target-closesValueInRight))
-            return Math.Min(closesValueInLeft, closesValueInRight);
-        else
-            return Math.Abs(target-closesValueInLeft) <  Math.Abs(target-closesValueInRight) ? closesValueInLeft: closesValueInRight;
-
+        // Return the closest value found
+        return closest;
     }
 }
