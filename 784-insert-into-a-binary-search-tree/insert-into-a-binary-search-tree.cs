@@ -13,35 +13,39 @@
  */
 public class Solution {
     public TreeNode InsertIntoBST(TreeNode root, int val) {
-       
-        if (root==null)
+        if(root == null)
             return new TreeNode(val);
-
-       TreeNode current = root;
-       
-       TreeNode previous = null;
-       while(true)
-       {
-            if (current == null)
+            
+        TreeNode dummy = root;
+        
+        while(true)
+        {
+            if(dummy.val>val)
             {
-                if (previous.val>val)
-                    previous.left = new TreeNode(val);
+                if(dummy.left == null)
+                {
+                    dummy.left = new TreeNode(val);
+                    return root;
+                }
                 else
-                    previous.right = new TreeNode(val);
-                
-                break;
-            }
-            if (current.val > val)
-            {
-                previous = current;
-                current = current.left;
+                {
+                    dummy = dummy.left;
+                }
             }
             else
             {
-                previous = current;
-                current = current.right;
+                if(dummy.right == null)
+                {
+                    dummy.right = new TreeNode(val);
+                    return root;
+                }
+                else
+                {
+                    dummy = dummy.right;
+                }
             }
         }
+
         return root;
     }
 }
