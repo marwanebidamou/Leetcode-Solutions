@@ -1,25 +1,17 @@
-class Solution {
-
+public class Solution {
     public int RemoveDuplicates(int[] nums) {
-        if (nums.Length == 0) {
-            return 0;
-        }
-
-        int i = 1; // Pointer for current index in the array
-        int count = 1; // Count of the current element occurrences
-
-        for (int j = 1; j < nums.Length; j++) {
-            if (nums[j] == nums[j - 1]) {
-                count++; // Increment count for the current element
-            } else {
-                count = 1; // Reset count for new element
-            }
-
-            if (count <= 2) {
-                nums[i++] = nums[j]; // Update the array in place
+        if (nums.Length <= 2) return nums.Length; // No need to process arrays with 2 or fewer elements
+        
+        int pointer = 2; // Pointer for the position to write in the modified array
+        
+        for (int index = 2; index < nums.Length; index++) {
+            // If the current number is different from the number two places before,
+            // it means we can keep this number.
+            if (nums[index] != nums[pointer - 2]) {
+                nums[pointer++] = nums[index];
             }
         }
-
-        return i; // Return the new array length
+        
+        return pointer; // The length of the modified array
     }
 }
