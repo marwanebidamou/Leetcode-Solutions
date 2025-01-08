@@ -1,35 +1,39 @@
 public class Solution {
     public string RemoveDuplicates(string s, int k) {
-        Stack<char> stack = new Stack<char>();       // Stack to store characters
-        Stack<int> stackCount = new Stack<int>();    // Stack to store counts of consecutive characters
+        // Stack to store characters
+        Stack<char> stack = new Stack<char>();
+        // Stack to store the count of consecutive characters
+        Stack<int> stackCount = new Stack<int>();
 
-        foreach (char c in s) {
-            if (stack.Any() && stack.Peek() == c) {
-                // Increment the count of the top character
-                int count = stackCount.Pop() + 1;
-                stackCount.Push(count);
+        // Push the first character to initialize the stack
+        stack.Push(s[0]);
+        stackCount.Push(1);
 
-                // If count reaches k, remove the characters
-                if (count == k) {
-                    stack.Pop();
+        // Iterate through the string starting from the second character
+        for (int i = 1; i < s.Length; i++) {
+            // Check if the stack is not empty and the current character matches the top of the stack
+            if (stack.Any() && stack.Peek() == s[i]) {
+                // If the count of the top character reaches k-1, remove it
+                if (stackCount.Any() && stackCount.Peek() == k - 1) {
+                    // Remove all occurrences of the character from the stack
+                    while (stack.Any() && stack.Peek() == s[i]) {
+                        stack.Pop();
+                    }
+                    // Remove the corresponding count from the stackCount
                     stackCount.Pop();
+                } else {
+                    // Increment the count of the current character and push it back
+                    stack.Push(s[i]);
+                    stackCount.Push(stackCount.Pop() + 1);
                 }
             } else {
-                // Push new character with count 1
-                stack.Push(c);
+                // If the character doesn't match the top, add it to the stack
+                stack.Push(s[i]);
                 stackCount.Push(1);
             }
         }
 
-        // Reconstruct the string using the stacks
-        var result = new StringBuilder();
-        while (stack.Any()) {
-            char c = stack.Pop();
-            int count = stackCount.Pop();
-
-            result.Insert(0, new string(c, count)); // Repeat the character `count` times
-        }
-
-        return result.ToString();
+        // Reconstruct the result string by reversing the stack
+        return new string(stack.Reverse().ToArray());
     }
 }
