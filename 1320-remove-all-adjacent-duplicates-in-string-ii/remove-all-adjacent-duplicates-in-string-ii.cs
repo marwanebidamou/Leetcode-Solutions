@@ -1,36 +1,35 @@
 public class Solution {
     public string RemoveDuplicates(string s, int k) {
-        Stack<char> stack = new Stack<char>();
-        Stack<int> stackCount = new Stack<int>();
+        Stack<char> stack = new Stack<char>();       // Stack to store characters
+        Stack<int> stackCount = new Stack<int>();    // Stack to store counts of consecutive characters
 
-        stack.Push(s[0]);
-        stackCount.Push(1);
+        foreach (char c in s) {
+            if (stack.Any() && stack.Peek() == c) {
+                // Increment the count of the top character
+                int count = stackCount.Pop() + 1;
+                stackCount.Push(count);
 
-        for(int i=1;i<s.Length;i++)
-        {   
-            if(stack.Any() && stack.Peek() == s[i])
-            {
-                if(stackCount.Any() && stackCount.Peek() == k-1)
-                {
-                    while(stack.Any() && stack.Peek()==s[i])
-                    {
-                        stack.Pop();
-                    }
+                // If count reaches k, remove the characters
+                if (count == k) {
+                    stack.Pop();
                     stackCount.Pop();
                 }
-                else
-                {
-                    stack.Push(s[i]);
-                    stackCount.Push(stackCount.Pop()+1);
-                }                
-            }
-            else
-            {
-                stack.Push(s[i]);
+            } else {
+                // Push new character with count 1
+                stack.Push(c);
                 stackCount.Push(1);
             }
         }
 
-        return new string(stack.Reverse().ToArray());
+        // Reconstruct the string using the stacks
+        var result = new StringBuilder();
+        while (stack.Any()) {
+            char c = stack.Pop();
+            int count = stackCount.Pop();
+
+            result.Insert(0, new string(c, count)); // Repeat the character `count` times
+        }
+
+        return result.ToString();
     }
 }
