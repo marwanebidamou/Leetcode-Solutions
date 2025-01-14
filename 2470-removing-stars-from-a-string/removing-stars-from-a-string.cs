@@ -9,7 +9,10 @@ public class Solution {
             else
                 stack.Push(character);
         }
+        StringBuilder output = new StringBuilder();
+        while(stack.Any())
+            output.Insert(0,stack.Pop());
 
-        return new string(stack.Reverse().ToArray());
+        return output.ToString();
     }
 }
