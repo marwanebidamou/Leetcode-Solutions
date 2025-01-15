@@ -13,9 +13,11 @@ public class Solution {
         if(dict.ContainsKey(position))
             return dict[position];
         
-        for(int i=1;i<=nums[position];i++)
+        int furthestJump = Math.Min(position + nums[position], nums.Length - 1);
+
+        for (int nextPosition = furthestJump; nextPosition > position; nextPosition--)
         {
-            if(CanJumpFromPosition(position+i, nums))
+            if(CanJumpFromPosition(nextPosition, nums))
                 return true;
         }
         dict[position] = false;
