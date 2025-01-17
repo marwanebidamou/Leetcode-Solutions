@@ -1,29 +1,29 @@
 public class Solution {
     public int EvalRPN(string[] tokens) {
-        Stack<string> stack = new Stack<string>();
+        // Use a stack to evaluate the Reverse Polish Notation.
+        Stack<int> stack = new Stack<int>();
 
-        foreach(var token in tokens)
-        {
-            if(token=="+" || token=="-" || token=="*" || token=="/"){
-                int number2 = int.Parse(stack.Pop());
-                int number1 = int.Parse(stack.Pop());
+        foreach (var token in tokens) {
+            // If the token is an operator, perform the corresponding operation.
+            if (token == "+" || token == "-" || token == "*" || token == "/") {
+                // Pop the last two elements from the stack for the operation.
+                int number2 = stack.Pop();
+                int number1 = stack.Pop();
 
-                int number = 0;
-
-                switch(token){
-                    case "+": number= number1+number2; break;
-                    case "-": number= number1-number2; break;
-                    case "*": number= number1*number2; break;
-                    case "/": number= number1/number2; break;
-                }
-
-                stack.Push(number.ToString());
-            }
-            else {
-                stack.Push(token);
+                // Perform the operation and push the result back onto the stack.
+                stack.Push(token switch {
+                    "+" => number1 + number2,
+                    "-" => number1 - number2,
+                    "*" => number1 * number2,
+                    "/" => number1 / number2
+                });
+            } else {
+                // Parse the token as an integer and push it onto the stack.
+                stack.Push(int.Parse(token));
             }
         }
 
-        return int.Parse(stack.Pop());
+        // Return the single result remaining in the stack.
+        return stack.Pop();
     }
 }
