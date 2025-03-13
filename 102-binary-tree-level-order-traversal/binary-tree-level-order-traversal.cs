@@ -13,42 +13,43 @@
  */
 public class Solution {
     public IList<IList<int>> LevelOrder(TreeNode root) {
-
+        // List to store the final result (each level as a separate list)
         IList<IList<int>> result = new List<IList<int>>();
 
-        if(root == null)
+        // Edge case: if the tree is empty, return an empty list
+        if (root == null)
             return result;
 
-
-
+        // Queue to help with BFS traversal
         Queue<TreeNode> queue = new Queue<TreeNode>();        
-        queue.Enqueue(root);
+        queue.Enqueue(root); // Start by enqueuing the root node
 
-        while(queue.Any())
-        {
-            int count = queue.Count();
+        // Loop while there are nodes to process in the queue
+        while (queue.Any()) {
+            int count = queue.Count(); // Number of nodes at the current level
 
+            // List to store the values of the current level
             IList<int> list = new List<int>();
 
-            for(int i=1;i<=count;i++)
-            {
-                var node = queue.Dequeue();
+            // Process all nodes at the current level
+            for (int i = 1; i <= count; i++) {
+                var node = queue.Dequeue(); // Dequeue a node
 
-                list.Add(node.val);
+                list.Add(node.val); // Add the node's value to the level list
 
-                if(node.left!=null)
-                {
+                // Enqueue left and right children if they exist
+                if (node.left != null) {
                     queue.Enqueue(node.left);
                 }
-                if(node.right!=null)
-                {
+                if (node.right != null) {
                     queue.Enqueue(node.right);
                 }
             }
             
+            // Add the current level's list to the result
             result.Add(list);
         }
 
-        return result;
+        return result; // Return the level-order traversal result
     }
 }
