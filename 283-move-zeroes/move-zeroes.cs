@@ -1,15 +1,21 @@
 public class Solution {
     public void MoveZeroes(int[] nums) {
-        int lastNonZeroIndex = 0;
-        
-        for (int i = 0; i < nums.Length; i++) {
-            // When we encounter a non-zero element, we swap it with the element at the last known non-zero index
-            if (nums[i] != 0) {
-                int temp = nums[lastNonZeroIndex];
-                nums[lastNonZeroIndex] = nums[i];
-                nums[i] = temp;
-                lastNonZeroIndex++;
+        int index = 0;
+        int actualIndex=0;
+
+        while(index<nums.Length)
+        {
+            if(nums[index]!=0)
+            {
+                nums[actualIndex++] = nums[index];                
             }
+            index++;
+        }
+
+        
+        while(actualIndex<nums.Length)
+        {
+            nums[actualIndex++]=0;
         }
     }
 }
