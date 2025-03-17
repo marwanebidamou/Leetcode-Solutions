@@ -1,9 +1,9 @@
 public class Solution {
     public bool CanAttendMeetings(int[][] intervals) {
-        var sorted = intervals.OrderBy(x=>x[0]);
+        Array.Sort(intervals, (a,b)=>a[0] - b[0]);
 
         int lastNumber=-1;
-        foreach(var item in sorted)
+        foreach(var item in intervals)
         {
             if(item[0]<lastNumber)
             {
