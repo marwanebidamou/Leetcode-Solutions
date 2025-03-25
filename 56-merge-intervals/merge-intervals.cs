@@ -11,14 +11,14 @@ public class Solution {
             {
                 stack.Push(item);
             }
-            else if(stack.Peek()[0] <= item[0] && stack.Peek()[1] >= item[1])
-            {
-                // Do nothing
-            }
-            else
+            else if(stack.Peek()[0] > item[0] || stack.Peek()[1] < item[1])
             {
                 var pop = stack.Pop();
                 stack.Push(new int[]{pop[0], item[1]});
+            }
+            else
+            {
+                // Do nothing
             }
         }
 
