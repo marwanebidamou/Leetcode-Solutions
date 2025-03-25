@@ -14,11 +14,11 @@ public class Solution {
 
             if(powerOfA != powerOfB)
             {
-                return powerOfA-powerOfB;
+                return powerOfA.CompareTo(powerOfB);
             }
             else
             {
-                return a-b;
+                return a.CompareTo(b);
             }
         });
 
@@ -28,20 +28,19 @@ public class Solution {
     Dictionary<int,int> memo = new Dictionary<int,int>();
     int GetPowerValue(int number)
     {
+        if(number == 1)
+            return 0;
+
         if(memo.ContainsKey(number))
             return memo[number];
 
+  
+
         int n=number;
-        int steps = 0;
-        while(n!=1)
-        {
-            steps++;
-            if(n % 2==0)
-                n = n / 2;
-            else
-                n = 3 * n + 1;
-        }
-        memo[number] = steps;
-        return steps;
+        
+        int next = n % 2==0 ? n / 2 : 3 * n + 1;
+        int power = 1 + GetPowerValue(next);
+        memo[n] = power;
+        return memo[n];
     }
 }
