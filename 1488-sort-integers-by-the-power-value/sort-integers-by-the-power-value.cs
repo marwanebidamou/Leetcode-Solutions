@@ -25,8 +25,12 @@ public class Solution {
         return list[k-1];
     }
 
+    Dictionary<int,int> memo = new Dictionary<int,int>();
     int GetPowerValue(int number)
     {
+        if(memo.ContainsKey(number))
+            return memo[number];
+
         int n=number;
         int steps = 0;
         while(n!=1)
@@ -37,7 +41,7 @@ public class Solution {
             else
                 n = 3 * n + 1;
         }
-
+        memo[number] = steps;
         return steps;
     }
 }
