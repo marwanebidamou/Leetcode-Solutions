@@ -1,27 +1,19 @@
 public class Solution {
-
-    Dictionary<int,bool> dict = new Dictionary<int,bool>();
-
     public bool CanJump(int[] nums) {
-        return CanJumpFromPosition(position: 0, nums);
-    }
-
-    public bool CanJumpFromPosition(int position, int[] nums) {
-        if (position == nums.Length - 1)
-            return true;
-        
-        if(dict.ContainsKey(position))
-            return dict[position];
-        
-        int furthestJump = Math.Min(position + nums[position], nums.Length - 1);
-
-        for (int nextPosition = furthestJump; nextPosition > position; nextPosition--)
+        int maxReach = 0;
+        int n=nums.Length-1;
+        for(int i=0;i<=n;i++)
         {
-            if(CanJumpFromPosition(nextPosition, nums))
+            if(i > maxReach)
+                return false;
+            
+            maxReach = Math.Max(maxReach, i+nums[i]);
+
+            if(maxReach >= n)
                 return true;
+
         }
-        dict[position] = false;
+
         return false;
     }
-
 }
