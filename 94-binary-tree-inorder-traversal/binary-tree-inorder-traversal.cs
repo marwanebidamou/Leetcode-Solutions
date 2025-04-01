@@ -16,19 +16,19 @@ public class Solution {
         if(root == null)
             return new List<int>();
 
-        return GetInOrderTraversal(root);
+        List<int> output = new List<int>();
+        GetInOrderTraversal(root, output);
+        return output;
     }
 
-    List<int> GetInOrderTraversal(TreeNode node)
+    void GetInOrderTraversal(TreeNode node, List<int> list)
     {   
         if(node == null)
-            return new List<int>();
+            return;
 
-        var left = GetInOrderTraversal(node.left);
-        var middle = new List<int> {node.val};
-        var right = GetInOrderTraversal(node.right);
+       GetInOrderTraversal(node.left, list);
+       list.Add(node.val);
+       GetInOrderTraversal(node.right, list);
         
-        return left.Concat(middle).Concat(right).ToList();
-
     }
 }
